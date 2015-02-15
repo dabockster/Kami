@@ -1,0 +1,51 @@
+<!DOCTYPE>
+<html ng-app="kamiApp">
+	<head>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+		<title>Kami</title>
+	</head>
+
+	<body>
+		<div class="container" ng-controller="AppCtrl">
+			<h1>Welcome to Kami!</h1>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Event Name</th>
+						<th>Hours</th>
+						<th>Total: {{kami.total}}</th>
+						
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td><input class="form-control" ng-model="kami.event_name"></td>
+						<td><input class="form-control" ng-model="kami.hours"></td></td>
+						<td><button class="btn btn-primary" ng-click="addEvent()">Add Event</td>
+					
+					</tr>
+					<tr ng-repeat="kami in kamilist">
+						<td>{{kami.event_name}}</td>
+						<td>{{kami.hours}}</td>
+					</tr>
+				</tbody>		
+			</table>
+		</div>
+
+		<!-- AngularJS -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-resource.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular-sanitize.min.js"></script>
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+		<!-- Custom controller -->
+		<script src="controllers/controller.js"></script>
+	</body>
+</html>

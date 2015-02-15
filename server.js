@@ -1,40 +1,63 @@
-'use strict';
-
-//import statements
-var express				= require('express'), //Express.js webserver
-	app_root			= __dirname, //placeholder for folder path
-	fs					= require('fs'), //Node.js filesystem library
-	morgan				= require('morgan'),	//HTTP request console logger
-	errorhandler		= require('errorHandler'), //error logger
-	mongoose			= require('mongoose'), //MongoDB DBMS driver
-	bodyParser			= require('body-parser'); //easy reading of JSON encoding
-
-//custom controllers (stuff that we created)
-//var kamiController = require('./server/controllers/kami-controller.js');
-
-//initialize Express server
+var express = require('express');
+var mongojs = require('mongojs');
+var bodyParser = require('body-parser');
 var app = express();
+var db = mongojs('kamilist', ['kamilist']);
 
-//JSON dependency
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
-//log EVERY HTTP request to the console
-app.use(morgan('dev'));
+app.get('/kamilist', function (req, res){
+	console.log("GET request detected");
 
-//log ALL build/runtime errors
-app.use(errorhandler( { dumpExceptions: true, showStack: true } ) );
-
-//HTTP request to index.html
-app.get('/', function(req, res){
-	//send index.html on GET request
-	res.sendFile(app_root + '/client/index.html');
+	db.kamilist.find(function (err, docs){
+		console.log(docs);
+		res.json(docs);
+	});
 });
 
-//redirect HTTP requests to correct directories
-app.use('/js', express.static(app_root + '/client/js'));
-app.use('/css', express.static(app_root + '/client/css'));
+app.post('/kamilist', function (req, res){
+	console.log(req.body);
+	db.kamilist.insert(req.body, function (err, doc){
+		res.json(doc);
+	});
+});
 
-//listener - param is port number
-app.listen(3000, function(){
-	console.log('Express.js server now listening on port 3000...');
+app.delete('/kamilist/:id', function (req, res){
+	var id = req.params.id;
+	console.log(id);
+	db.kamilist.remove({_id: mongojs.ObjectId(id)}, function (err, doc){
+		res.json(doc);
+	});
+});
+
+app.get('/kamilist/:id', function (req, res){
+	var id = req.params.id;
+	console.log(id);
+	db.kamilist.findOne({_id: mongojs.ObjectId(id)}, function (err, doc){
+		res.json(doc);
+	});
+});
+
+app.put('/kamilist/:id', function (req, res){
+	var id = req.params.id;
+	console.log(req.body.kami_name);
+	db.kamilist.findAndModify({
+		query: {_id: mongojs.ObjectId(id)},
+		update: {
+			$set: 
+			{
+				event_name: req.body.kami_name, 
+				hours: req.body.hours
+			}
+		},
+			new: true
+		},
+		function (err, doc){
+			res.json(doc);
+	});
+});
+
+app.listen(3000, function (){
+	console.log("Express server listening on port 3000...")
 });
