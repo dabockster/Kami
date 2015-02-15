@@ -1,5 +1,6 @@
 'use strict';
 
+//import statements
 var express				= require('express'), //Express.js webserver
 	app_root			= __dirname, //placeholder for folder path
 	fs					= require('fs'), //Node.js filesystem library
@@ -7,6 +8,9 @@ var express				= require('express'), //Express.js webserver
 	errorhandler		= require('errorHandler'), //error logger
 	mongoose			= require('mongoose'), //MongoDB DBMS driver
 	bodyParser			= require('body-parser'); //easy reading of JSON encoding
+
+//custom controllers (stuff that we created)
+var kamiController = require('./server/controllers/kami-controller.js');
 
 //initialize Express server
 var app = express();
