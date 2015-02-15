@@ -1,4 +1,8 @@
-node_modules
 *.log
 .grunt
 build/Release
+.DS_Store
+.svn
+log/*.log
+tmp/**
+node_modules/
