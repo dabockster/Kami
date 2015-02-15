@@ -9,4 +9,4 @@ var schema = new Schema({
 });
 
 //return reference to db
-module.exports = mongoose.model('Tissue', schema);
+module.exports = mongoose.model('Kami', schema);

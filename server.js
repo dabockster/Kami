@@ -10,7 +10,7 @@ var express				= require('express'), //Express.js webserver
 	bodyParser			= require('body-parser'); //easy reading of JSON encoding
 
 //custom controllers (stuff that we created)
-var kamiController = require('./server/controllers/kami-controller.js');
+//var kamiController = require('./server/controllers/kami-controller.js');
 
 //initialize Express server
 var app = express();

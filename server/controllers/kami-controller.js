@@ -2,7 +2,7 @@
 var Kami = require('../models/kami-user');
 
 module.exports.list = function(){
-	Kami.find({}, function (err, tissues) {
+	Kami.find({}, function (err, kamis) {
 		//receive as JSON
-    	res.json(tissues););
+    	res.json(kamis););
 };
