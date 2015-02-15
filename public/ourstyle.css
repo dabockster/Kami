@@ -1,5 +1,17 @@
 #header{
 	text-align: center;
+	background-image: url("lotus.jpg");
+}
+
+#logo{
+	height: auto;
+	width: auto;
+	max-width: 500px;
+	max-height: 500px;
+}
+
+h2{
+	color: white;
 }
 
 .btn{
